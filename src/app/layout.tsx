@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Caveat, Inter } from "next/font/google";
+import { DisableBasicInspect } from "@/components/DisableBasicInspect";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
@@ -63,6 +64,7 @@ export default function RootLayout({
         >
           Bỏ qua tới nội dung chính
         </a>
+        <DisableBasicInspect />
         {children}
       </body>
     </html>
