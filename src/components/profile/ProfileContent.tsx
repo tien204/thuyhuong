@@ -120,8 +120,8 @@ export function ProfileContent() {
             <div className="overflow-hidden rounded-[var(--radius-profile)] bg-white shadow-[0_8px_30px_-12px_rgba(0,49,139,0.15)]">
               <div className="relative aspect-[4/5] w-full overflow-hidden">
                 <Image
-                  src="https://picsum.photos/seed/thuyhuong-profile/720/900"
-                  alt="Ảnh chân dung Đinh Thị Thủy Hương — thay bằng ảnh thật"
+                  src="/hero-avatar.png"
+                  alt="Ảnh chân dung Đinh Thị Thủy Hương"
                   fill
                   className="object-cover object-top"
                   sizes="(max-width: 1024px) 100vw, 360px"
@@ -133,11 +133,11 @@ export function ProfileContent() {
                 <p className="text-sm font-medium tracking-wide text-white/80">
                   Xin chào, tôi là
                 </p>
-                <h1 className="mt-1 font-[family-name:var(--font-display)] text-[clamp(1.75rem,4vw,2.35rem)] font-extrabold leading-[1.1] tracking-tight text-balance">
+                <h2 className="mt-1 font-[family-name:var(--font-display)] text-[clamp(1.75rem,4vw,2.35rem)] font-extrabold leading-[1.1] tracking-tight text-balance">
                   Đinh Thị
                   <br />
                   Thủy Hương
-                </h1>
+                </h2>
 
                 <ul className="mt-6 space-y-3.5">
                   <li>

@@ -58,14 +58,10 @@ export function ExperienceCaseStudy() {
             <div className="min-w-0">
               <div className="max-w-none lg:ml-auto lg:max-w-[360px]">
                 <p className="text-sm leading-relaxed text-[var(--color-body)]">
-                  Section này được dựng theo bố cục editorial của board trình bày
-                  campaign. Các vùng có hình ảnh thật được thay bằng placeholder
-                  để giữ cấu trúc layout trước khi gắn asset chính thức.
+                Campaign Tết Bính Ngọ 2026 của here.olong được phát triển từ concept “Thêu hoa dệt gấm”, kết hợp tinh thần di sản thêu Bình Định với trải nghiệm trà hiện đại. Dự án được triển khai đồng bộ trên nhiều điểm chạm, từ key visual, POSM, social media đến các ấn phẩm truyền thông tại cửa hàng.
                 </p>
                 <p className="mt-4 text-sm leading-relaxed text-[var(--color-body)]">
-                  Trọng tâm là một hero poster lớn, stamp mockup bên phải và bộ
-                  deliverables trải rộng phía dưới để thể hiện hệ sinh thái ấn
-                  phẩm của dự án.
+                Bố cục board tái hiện hệ sinh thái nhận diện của campaign, bao gồm poster chủ đạo, mockup digital trên laptop, sản phẩm ly takeaway, túi gấm thủ công và không gian cửa hàng trong – ngoài. Tổng thể nhấn mạnh sự nhất quán về hình ảnh thương hiệu, đồng thời truyền tải vẻ đẹp thủ công, tinh tế và giàu cảm xúc của mùa Tết.
                 </p>
 
                 <div className="mt-6 flex justify-center sm:mt-8 lg:justify-start">
@@ -81,7 +77,7 @@ export function ExperienceCaseStudy() {
                 </div>
               </div>
 
-              <div className="mt-6 sm:mt-8">
+              <div className="relative z-20 mt-6 sm:mt-8">
                 <div className="relative mx-auto max-w-[260px] overflow-hidden sm:ml-auto sm:max-w-[320px] sm:overflow-visible">
                   <div className="relative z-0 ml-auto w-full max-w-[220px] rotate-[-2deg] overflow-hidden rounded-2xl border-4 border-white bg-white shadow-[0_14px_30px_rgba(0,0,0,0.16)] sm:max-w-[260px]">
                     <div className="relative aspect-[3/4] w-full">
@@ -95,7 +91,7 @@ export function ExperienceCaseStudy() {
                     </div>
                   </div>
 
-                  <div className="relative z-10 -mt-28 -ml-6 w-full max-w-[220px] rotate-[2deg] overflow-hidden rounded-2xl border-4 border-white bg-white shadow-[0_20px_40px_rgba(0,0,0,0.22)] sm:-mt-60 sm:-ml-36 sm:max-w-[260px]">
+                  <div className="relative z-20 -mt-28 ml-2 w-full max-w-[220px] rotate-[2deg] overflow-hidden rounded-2xl border-4 border-white bg-white shadow-[0_20px_40px_rgba(0,0,0,0.22)] sm:-mt-60 sm:-ml-16 sm:max-w-[260px]">
                     <div className="relative aspect-[3/4] w-full">
                       <Image
                         src="/theuhoadetgam/hereolong/inside.webp"

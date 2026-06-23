@@ -12,15 +12,15 @@ const RESPONSIBILITIES = [
 ] as const;
 
 const SKILLS = [
-  "Social media planning",
-  "Facebook & TikTok content",
-  "KOL/KOC management",
-  "Video scripting",
-  "Video production",
-  "Trend research",
-  "Livestream operation",
-  "Brand awareness growth",
-  "Performance-oriented content",
+  "Lên kế hoạch social media",
+  "Nội dung Facebook & TikTok",
+  "Quản lý KOL/KOC",
+  "Kịch bản video",
+  "Sản xuất video",
+  "Nghiên cứu xu hướng",
+  "Vận hành livestream",
+  "Tăng nhận diện thương hiệu",
+  "Nội dung theo hiệu quả",
 ] as const;
 
 const METRICS = [

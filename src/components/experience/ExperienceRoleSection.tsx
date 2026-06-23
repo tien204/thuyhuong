@@ -69,9 +69,9 @@ export function ExperienceRoleSection({
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--color-legal-link)]">
                 Nhiệm vụ chính
               </p>
-              <h3 className="mt-2 font-[family-name:var(--font-display)] text-[clamp(1.25rem,2.2vw,1.65rem)] font-extrabold leading-tight tracking-tight text-[var(--color-primary)]">
+              <h2 className="mt-2 font-[family-name:var(--font-display)] text-[clamp(1.25rem,2.2vw,1.65rem)] font-extrabold leading-tight tracking-tight text-[var(--color-primary)]">
                 {role}
-              </h3>
+              </h2>
 
               <div className="mt-6">
                 <ResponsibilityList items={responsibilities} />

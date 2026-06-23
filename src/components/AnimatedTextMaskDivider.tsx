@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
+import { usePrefersReducedMotion } from "@/lib/motion";
 import gsap from "gsap";
 
 gsap.registerPlugin(useGSAP);
@@ -31,6 +32,7 @@ export function AnimatedTextMaskDivider() {
   const tabRef = useRef<HTMLDivElement>(null);
   const tabTextRef = useRef<HTMLDivElement>(null);
   const labelRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   useGSAP(
     () => {
@@ -94,6 +96,12 @@ export function AnimatedTextMaskDivider() {
         const positions = getPositions(tabW);
 
         if (positions.length !== labels.length) return;
+
+        if (prefersReducedMotion) {
+          gsap.set(tab, { x: positions[0] });
+          gsap.set(tabText, { x: -positions[0] });
+          return;
+        }
 
         const startOut = -tabW;
         const endOut = wrapW;
@@ -166,7 +174,7 @@ export function AnimatedTextMaskDivider() {
         window.removeEventListener("resize", buildAnimation);
       };
     },
-    { scope: wrapRef },
+    { scope: wrapRef, dependencies: [prefersReducedMotion] },
   );
 
   return (

@@ -36,5 +36,5 @@ Chuyên nghiệp, ấm, tự tin. Giọng điệu gần gũi nhưng có cấu tr
 
 - Mục tiêu WCAG 2.1 AA cho contrast trên nền warm neutral và green primary.
 - Nút và control tương tác có `focus-visible` ring (`--color-green-accent`).
-- `prefers-reduced-motion`: giảm animation profile reveal và ribbon khi user yêu cầu (cần bổ sung trong code).
+- `prefers-reduced-motion`: giảm animation profile reveal, ribbon texture scroll và text mask divider khi user yêu cầu.
 - Alt text mô tả nội dung ảnh campaign; không để `alt` rỗng trên ảnh có ý nghĩa.

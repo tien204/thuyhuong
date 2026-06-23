@@ -22,11 +22,15 @@ declare global {
 }
 
 function useLazyLoad(rootMargin = "400px", eager = false) {
-  const ref = useRef<HTMLDivElement>(null);
+  const [element, setElement] = useState<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(eager);
 
+  const ref = useCallback((node: HTMLDivElement | null) => {
+    setElement(node);
+  }, []);
+
   useEffect(() => {
-    if (eager || !ref.current || visible) return;
+    if (eager || !element || visible) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -38,12 +42,12 @@ function useLazyLoad(rootMargin = "400px", eager = false) {
       { rootMargin },
     );
 
-    observer.observe(ref.current);
+    observer.observe(element);
 
     return () => observer.disconnect();
-  }, [visible, rootMargin, eager]);
+  }, [visible, rootMargin, eager, element]);
 
-  return { ref, visible };
+  return { ref, element, visible };
 }
 
 function useElementWidth(fallback = 320) {
@@ -99,6 +103,49 @@ function EmbedSkeleton({
   );
 }
 
+function EmbedUnavailable({
+  label,
+  className = "",
+}: {
+  label: string;
+  className?: string;
+}) {
+  return (
+    <div
+      className={`flex w-full flex-col items-center justify-center gap-2 rounded-[var(--radius-md)] bg-[var(--color-surface-soft)] px-4 text-center text-sm text-[var(--color-body)] ${className}`}
+    >
+      <p className="font-medium">Không thể tải {label}</p>
+      <p className="text-xs text-[var(--color-body)]/70">
+        Nội dung có thể bị chặn bởi nền tảng hoặc trình duyệt.
+      </p>
+    </div>
+  );
+}
+
+function useEmbedLoadState(active: boolean, timeoutMs = 12000) {
+  const [state, setState] = useState<"loading" | "ready" | "unavailable">(
+    "loading",
+  );
+
+  useEffect(() => {
+    if (!active) {
+      setState("loading");
+      return;
+    }
+
+    setState("loading");
+    const timer = window.setTimeout(() => {
+      setState((current) => (current === "ready" ? "ready" : "unavailable"));
+    }, timeoutMs);
+
+    return () => window.clearTimeout(timer);
+  }, [active, timeoutMs]);
+
+  const markReady = useCallback(() => setState("ready"), []);
+
+  return { state, markReady };
+}
+
 export function FacebookSDK() {
   return (
     <>
@@ -146,6 +193,7 @@ export function TikTokEmbed({
   eager?: boolean;
 }) {
   const { ref, visible } = useLazyLoad("400px", eager);
+  const { state, markReady } = useEmbedLoadState(visible);
 
   const src =
     `https://www.tiktok.com/player/v1/${videoId}` +
@@ -165,18 +213,26 @@ export function TikTokEmbed({
       className={`overflow-hidden bg-[var(--color-white)] ${fillCard ? "h-full w-full" : "mx-auto w-full rounded-[var(--radius-md)]"} ${className}`}
     >
       {visible ? (
-        <iframe
-          src={src}
-          title="TikTok video"
-          className={
-            fillCard
-              ? "h-full w-full border-0"
-              : "aspect-[9/16] h-auto w-full border-0"
-          }
-          allow="fullscreen; encrypted-media; picture-in-picture"
-          allowFullScreen
-          loading={eager ? "eager" : "lazy"}
-        />
+        state === "unavailable" ? (
+          <EmbedUnavailable
+            label="TikTok"
+            className={fillCard ? "h-full" : "aspect-[9/16] min-h-0"}
+          />
+        ) : (
+          <iframe
+            src={src}
+            title="TikTok video"
+            className={
+              fillCard
+                ? "h-full w-full border-0"
+                : "aspect-[9/16] h-auto w-full border-0"
+            }
+            allow="fullscreen; encrypted-media; picture-in-picture"
+            allowFullScreen
+            loading={eager ? "eager" : "lazy"}
+            onLoad={markReady}
+          />
+        )
       ) : (
         <EmbedSkeleton
           label="TikTok"
@@ -206,20 +262,41 @@ export function FacebookVideoEmbed({
   fillCard?: boolean;
   eager?: boolean;
 }) {
-  const { ref: lazyRef, visible } = useLazyLoad("400px", eager);
+  const { ref: lazyRef, element, visible } = useLazyLoad("400px", eager);
   const { setRef: widthRef, width: measuredWidth } = useElementWidth(width);
   const embedWidth = fluid ? measuredWidth : width;
+  const { state, markReady } = useEmbedLoadState(visible);
 
   useEffect(() => {
-    if (!visible || !lazyRef.current || embedWidth < 200) return;
+    if (!visible || !element || embedWidth < 200) return;
 
-    const element = lazyRef.current;
-    const timer = window.setTimeout(() => {
+    let cancelled = false;
+
+    const markIfEmbedded = () => {
+      if (cancelled) return false;
+      const hasIframe = element.querySelector("iframe");
+      if (hasIframe) {
+        markReady();
+        return true;
+      }
+      return false;
+    };
+
+    const parseTimer = window.setTimeout(() => {
       window.FB?.XFBML?.parse(element);
     }, 300);
 
-    return () => window.clearTimeout(timer);
-  }, [visible, href, embedWidth]);
+    const observer = new MutationObserver(() => {
+      if (markIfEmbedded()) observer.disconnect();
+    });
+    observer.observe(element, { childList: true, subtree: true });
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(parseTimer);
+      observer.disconnect();
+    };
+  }, [visible, href, embedWidth, element, markReady]);
 
   return (
     <div
@@ -230,13 +307,20 @@ export function FacebookVideoEmbed({
       {!skipSdk ? <FacebookSDK /> : null}
 
       {visible ? (
-        <div
-          className={`fb-video [&_span]:!max-w-full ${fillCard ? "max-h-full overflow-hidden" : ""}`}
-          data-href={href}
-          data-width={embedWidth}
-          data-show-text={showText}
-          data-allowfullscreen="true"
-        />
+        state === "unavailable" ? (
+          <EmbedUnavailable
+            label="Facebook video"
+            className={fillCard ? "h-full w-full" : "aspect-video min-h-[220px]"}
+          />
+        ) : (
+          <div
+            className={`fb-video [&_span]:!max-w-full ${fillCard ? "max-h-full overflow-hidden" : ""}`}
+            data-href={href}
+            data-width={embedWidth}
+            data-show-text={showText}
+            data-allowfullscreen="true"
+          />
+        )
       ) : (
         <EmbedSkeleton
           label="Facebook video"
@@ -262,20 +346,41 @@ export function FacebookPostEmbed({
   skipSdk?: boolean;
   fluid?: boolean;
 }) {
-  const { ref: lazyRef, visible } = useLazyLoad();
+  const { ref: lazyRef, element, visible } = useLazyLoad();
   const { setRef: widthRef, width: measuredWidth } = useElementWidth(width ?? 480);
   const embedWidth = fluid ? measuredWidth : (width ?? 480);
+  const { state, markReady } = useEmbedLoadState(visible);
 
   useEffect(() => {
-    if (!visible || !lazyRef.current || embedWidth < 200) return;
+    if (!visible || !element || embedWidth < 200) return;
 
-    const element = lazyRef.current;
-    const timer = window.setTimeout(() => {
+    let cancelled = false;
+
+    const markIfEmbedded = () => {
+      if (cancelled) return false;
+      const hasIframe = element.querySelector("iframe");
+      if (hasIframe) {
+        markReady();
+        return true;
+      }
+      return false;
+    };
+
+    const parseTimer = window.setTimeout(() => {
       window.FB?.XFBML?.parse(element);
     }, 300);
 
-    return () => window.clearTimeout(timer);
-  }, [visible, href, embedWidth]);
+    const observer = new MutationObserver(() => {
+      if (markIfEmbedded()) observer.disconnect();
+    });
+    observer.observe(element, { childList: true, subtree: true });
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(parseTimer);
+      observer.disconnect();
+    };
+  }, [visible, href, embedWidth, element, markReady]);
 
   return (
     <div
@@ -286,12 +391,16 @@ export function FacebookPostEmbed({
       {!skipSdk ? <FacebookSDK /> : null}
 
       {visible ? (
-        <div
-          className="fb-post [&_span]:!max-w-full"
-          data-href={href}
-          data-width={embedWidth}
-          data-show-text={showText}
-        />
+        state === "unavailable" ? (
+          <EmbedUnavailable label="Facebook post" className="min-h-[320px]" />
+        ) : (
+          <div
+            className="fb-post [&_span]:!max-w-full"
+            data-href={href}
+            data-width={embedWidth}
+            data-show-text={showText}
+          />
+        )
       ) : (
         <EmbedSkeleton label="Facebook post" className="min-h-[320px]" />
       )}

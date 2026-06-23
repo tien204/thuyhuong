@@ -13,6 +13,7 @@ export function Hero() {
         priority
         sizes="100vw"
         className="object-cover object-center opacity-90"
+        aria-hidden
       />
 
       <div className="relative z-10 mx-auto w-full max-w-[1280px] px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
@@ -21,18 +22,18 @@ export function Hero() {
             Viet Nam / Thủy Hương
           </p>
 
-          <h1
-            aria-label="Portfolio"
-            className="font-[family-name:var(--font-display)] text-[clamp(3.25rem,16vw,13rem)] font-black leading-[0.82] tracking-[-0.045em]"
-          >
+          <h1 className="font-[family-name:var(--font-display)] text-[clamp(3.25rem,16vw,13rem)] font-black leading-[0.82] tracking-[-0.045em]">
             <span className="block text-white">PORTA</span>
-            <span className="flex items-end text-[#222222]">
+            <span className="flex items-end text-[var(--color-hero-ink)]">
               <span>FOLI</span>
               <span className="relative inline-block overflow-visible">
                 <span className="invisible select-none" aria-hidden>
                   O
                 </span>
-                <span className="absolute bottom-0 left-1/2 w-[1.15em] -translate-x-1/2">
+                <span
+                  className="absolute bottom-0 left-1/2 w-[1.15em] -translate-x-1/2"
+                  aria-hidden
+                >
                   <span className="relative block translate-y-[0.2em]">
                     <Image
                       src="/hero-avatar.png"

@@ -8,11 +8,11 @@ const RESPONSIBILITIES = [
 ] as const;
 
 const SKILLS = [
-  "Facebook page management",
-  "Basic content planning",
-  "Customer research",
-  "Simple design",
-  "Entry-level marketing execution",
+  "Quản lý fanpage Facebook",
+  "Lập kế hoạch nội dung",
+  "Nghiên cứu khách hàng",
+  "Thiết kế post đơn giản",
+  "Triển khai marketing cơ bản",
 ] as const;
 
 export function NoiCreativeExperience() {

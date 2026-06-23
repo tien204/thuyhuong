@@ -28,8 +28,10 @@ const TIKTOK_VIDEO_IDS = [
   "7602254328283368712",
 ] as const;
 
-const slideBasis =
-  "basis-[min(300px,calc(100vw-4.5rem))] pl-0";
+const slideBasis = "basis-[min(300px,calc(100vw-4.5rem))] pl-0";
+
+const carouselNavClassName =
+  "size-11 min-h-11 min-w-11 border-[var(--color-hairline)] bg-[var(--color-white)] text-[var(--color-primary)] hover:bg-[var(--color-surface-soft)] disabled:opacity-40";
 
 export function SocialVideoCarousel() {
   return (
@@ -45,14 +47,14 @@ export function SocialVideoCarousel() {
         className="w-full"
       >
         <CarouselContent className="-ml-0 gap-4 sm:gap-5">
-          {FACEBOOK_VIDEOS.map((href) => (
+          {FACEBOOK_VIDEOS.map((href, index) => (
             <CarouselItem key={href} className={slideBasis}>
               <SocialEmbedCard>
                 <FacebookVideoEmbed
                   href={href}
                   skipSdk
                   fillCard
-                  eager
+                  eager={index === 0}
                   fluid
                 />
               </SocialEmbedCard>
@@ -62,14 +64,18 @@ export function SocialVideoCarousel() {
           {TIKTOK_VIDEO_IDS.map((videoId) => (
             <CarouselItem key={videoId} className={slideBasis}>
               <SocialEmbedCard>
-                <TikTokEmbed videoId={videoId} fillCard eager />
+                <TikTokEmbed videoId={videoId} fillCard />
               </SocialEmbedCard>
             </CarouselItem>
           ))}
         </CarouselContent>
 
-        <CarouselPrevious className="left-0 size-8 border-[var(--color-hairline)] bg-[var(--color-white)] text-[var(--color-primary)] hover:bg-[var(--color-surface-soft)] disabled:opacity-40 sm:left-1 sm:size-9 md:left-2 md:size-10" />
-        <CarouselNext className="right-0 size-8 border-[var(--color-hairline)] bg-[var(--color-white)] text-[var(--color-primary)] hover:bg-[var(--color-surface-soft)] disabled:opacity-40 sm:right-1 sm:size-9 md:right-2 md:size-10" />
+        <CarouselPrevious
+          className={`left-0 sm:left-1 md:left-2 ${carouselNavClassName}`}
+        />
+        <CarouselNext
+          className={`right-0 sm:right-1 md:right-2 ${carouselNavClassName}`}
+        />
       </Carousel>
     </div>
   );

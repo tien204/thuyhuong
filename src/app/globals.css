@@ -57,6 +57,7 @@
 
   /* Hero / ribbon */
   --color-hero-navy: #0a1628;
+  --color-hero-ink: #1a2332;
   --color-ribbon-accent: var(--color-green-accent);
   --color-brand-blue: #00318b;
   --color-brand-red: #a32020;
@@ -463,6 +464,16 @@ body {
 
 .img-fade.is-loaded {
   opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .profile-reveal,
+  .profile-reveal-delay-1,
+  .profile-reveal-delay-2,
+  .profile-reveal-delay-3,
+  .profile-reveal-delay-4 {
+    animation: none;
+  }
 }
 
 /* — Profile reveal — */
