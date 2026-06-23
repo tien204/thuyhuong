@@ -48,3 +48,5 @@ Thumbs.db
 
 # eslint
 .eslintcache
+/ribbon-test
+/ribbon-prod
