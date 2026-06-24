@@ -1,12 +1,19 @@
 import type { Metadata } from "next";
-import { Caveat, Inter } from "next/font/google";
+import { Be_Vietnam_Pro, Caveat, Inter } from "next/font/google";
 import { DisableBasicInspect } from "@/components/DisableBasicInspect";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
 const inter = Inter({
-  subsets: ["latin"],
+  subsets: ["latin", "vietnamese"],
   variable: "--font-inter",
+  display: "swap",
+});
+
+const beVietnamPro = Be_Vietnam_Pro({
+  subsets: ["latin", "vietnamese"],
+  weight: ["300", "400", "500", "600"],
+  variable: "--font-vietnam",
   display: "swap",
 });
 
@@ -56,7 +63,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="vi" className={cn(inter.variable, caveat.variable, "font-sans")}>
+    <html
+      lang="vi"
+      className={cn(
+        inter.variable,
+        beVietnamPro.variable,
+        caveat.variable,
+        "font-sans",
+      )}
+    >
       <body className="overflow-x-hidden">
         <a
           href="#profile"

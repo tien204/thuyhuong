@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import ClaudeChatInput from "@/components/ui/claude-style-chat-input";
 import { ContactInfoPanel } from "@/components/contact/ContactInfoPanel";
@@ -47,11 +47,13 @@ function isValidPhone(value: string) {
   return digits.length >= 9 && digits.length <= 11;
 }
 
-function getGreeting() {
-  const hour = new Date().getHours();
-  if (hour >= 12 && hour < 18) return "Chào buổi chiều";
-  if (hour >= 18) return "Chào buổi tối";
-  return "Chào buổi sáng";
+function getGreeting(date = new Date()) {
+  const hour = date.getHours();
+
+  if (hour >= 5 && hour < 11) return "Chào buổi sáng";
+  if (hour >= 11 && hour < 13) return "Chào buổi trưa";
+  if (hour >= 13 && hour < 18) return "Chào buổi chiều";
+  return "Chào buổi tối";
 }
 
 function buildMailtoLink(form: ContactForm) {
@@ -81,9 +83,17 @@ export function WorkContactSection() {
   });
   const [error, setError] = useState<string | null>(null);
   const [isTyping, setIsTyping] = useState(false);
+  const [greeting, setGreeting] = useState(() => getGreeting());
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  const greeting = useMemo(() => getGreeting(), []);
+  useEffect(() => {
+    const syncGreeting = () => setGreeting(getGreeting());
+
+    syncGreeting();
+    const interval = window.setInterval(syncGreeting, 60_000);
+
+    return () => window.clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const container = scrollContainerRef.current;
@@ -221,9 +231,12 @@ export function WorkContactSection() {
                 <p className="text-xs font-medium uppercase tracking-wide text-[var(--color-profile-muted)]">
                   Trợ lý liên hệ
                 </p>
-                <h2 className="font-[family-name:var(--font-serif)] text-lg font-light tracking-tight text-[var(--color-profile-navy)] sm:text-xl">
-                  {greeting},{" "}
-                  <span className="relative inline-block">
+                <h2
+                  lang="vi"
+                  className="font-[family-name:var(--font-vietnamese)] text-lg font-medium leading-snug tracking-normal text-[var(--color-profile-navy)] sm:text-xl"
+                >
+                  <span>{greeting},</span>{" "}
+                  <span className="relative inline-block font-semibold">
                     anh/chị
                     <svg
                       className="absolute -bottom-0.5 left-0 h-[10px] w-full text-[var(--color-green-accent)]"

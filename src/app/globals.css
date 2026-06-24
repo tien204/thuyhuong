@@ -74,8 +74,9 @@
   --color-profile-heading: var(--color-green-starbucks);
 
   /* Typography */
-  --font-sans: var(--font-inter), "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-display: var(--font-inter), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-sans: var(--font-inter), var(--font-vietnam), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-display: var(--font-inter), var(--font-vietnam), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-vietnamese: var(--font-vietnam), var(--font-inter), "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-serif: "Iowan Old Style", Georgia, serif;
   --font-script: var(--font-caveat), "Kalam", cursive;
   --font-ribbon: "Arial Black", "Segoe UI Black", sans-serif;
