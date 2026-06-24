@@ -66,9 +66,6 @@ export function ExperienceRoleSection({
         <div className="rounded-[24px] border border-[var(--color-hairline)]/80 bg-[var(--color-surface-soft)] p-4 shadow-[0_16px_40px_rgba(0,0,0,0.05)] sm:rounded-[32px] sm:p-7 lg:p-10">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(280px,1.1fr)] lg:items-start lg:gap-12">
             <div className={reversed ? "lg:col-start-2" : "lg:pr-4"}>
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--color-legal-link)]">
-                Nhiệm vụ chính
-              </p>
               <h2 className="mt-2 font-[family-name:var(--font-display)] text-[clamp(1.25rem,2.2vw,1.65rem)] font-extrabold leading-tight tracking-tight text-[var(--color-primary)]">
                 {role}
               </h2>

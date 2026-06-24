@@ -509,3 +509,21 @@ body {
     transform: translateY(0);
   }
 }
+
+.chat-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-profile-border) transparent;
+}
+
+.chat-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-scroll::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: var(--color-profile-border);
+}
+
+.chat-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--color-profile-muted);
+}
