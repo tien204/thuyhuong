@@ -15,7 +15,7 @@ export function ExperienceSectionBar({
 }: ExperienceSectionBarProps) {
   return (
     <section className="bg-[var(--color-canvas)] pb-8 pt-2 sm:pb-12">
-      <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-[1320px] px-4 sm:px-6 lg:px-8">
         <div className="flex items-stretch gap-3 sm:items-center sm:gap-6">
           <span
             className="hidden h-3 w-3 shrink-0 self-center rounded-full bg-[var(--color-primary)] sm:block sm:h-3.5 sm:w-3.5"

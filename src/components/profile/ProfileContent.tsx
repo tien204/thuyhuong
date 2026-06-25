@@ -120,7 +120,7 @@ export function ProfileContent() {
             <div className="overflow-hidden rounded-[var(--radius-profile)] bg-white shadow-[0_8px_30px_-12px_rgba(0,49,139,0.15)]">
               <div className="relative aspect-[4/5] w-full overflow-hidden">
                 <Image
-                  src="/hero-avatar.png"
+                  src="/real-avatar.jpg"
                   alt="Ảnh chân dung Đinh Thị Thủy Hương"
                   fill
                   className="object-cover object-top"
@@ -184,100 +184,99 @@ export function ProfileContent() {
           </article>
 
           {/* Main content — right */}
-          <div className="flex flex-col gap-6 lg:col-start-2">
-            {/* Tools, clients & highlights card */}
-            <article className="rounded-[var(--radius-profile)] border-2 border-[var(--color-profile-navy)] bg-white p-6 md:p-8">
-              <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_minmax(0,220px)] lg:gap-0 xl:grid-cols-[1fr_minmax(0,240px)]">
-                <div className="min-w-0">
-                  <div>
-                    <h2 className="font-[family-name:var(--font-display)] text-lg font-extrabold text-[var(--color-profile-navy)] md:text-xl">
-                      Công cụ
-                    </h2>
-                    <div className="mt-5 flex flex-wrap gap-5 sm:gap-6">
-                      {TOOLS.map((tool) => (
-                        <LogoPlaceholder
-                          key={tool.name}
-                          name={tool.name}
-                          imageSrc={tool.imageSrc}
-                        />
-                      ))}
+          <div className="flex flex-col gap-0 lg:col-start-2">
+            <article className="divide-y divide-[var(--color-profile-border)] rounded-[var(--radius-profile)] border border-[var(--color-profile-border)] bg-white/90">
+              {/* Tools, clients & highlights */}
+              <div className="p-6 md:p-8">
+                <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_minmax(0,220px)] lg:gap-0 xl:grid-cols-[1fr_minmax(0,240px)]">
+                  <div className="min-w-0">
+                    <div>
+                      <h2 className="font-[family-name:var(--font-display)] text-lg font-extrabold text-[var(--color-profile-navy)] md:text-xl">
+                        Công cụ
+                      </h2>
+                      <div className="mt-5 flex flex-wrap gap-5 sm:gap-6">
+                        {TOOLS.map((tool) => (
+                          <LogoPlaceholder
+                            key={tool.name}
+                            name={tool.name}
+                            imageSrc={tool.imageSrc}
+                          />
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="mt-8 border-t border-[var(--color-profile-border)] pt-8">
+                      <h2 className="font-[family-name:var(--font-display)] text-lg font-extrabold text-[var(--color-profile-navy)] md:text-xl">
+                        Khách hàng & dự án
+                      </h2>
+                      <div className="mt-5 flex flex-wrap gap-5 sm:gap-6">
+                        {CLIENTS.map((client) => (
+                          <LogoPlaceholder
+                            key={client.name}
+                            name={client.name}
+                            imageSrc={client.imageSrc}
+                          />
+                        ))}
+                      </div>
                     </div>
                   </div>
 
-                  <div className="mt-8 border-t border-[var(--color-profile-border)] pt-8">
+                  <div className="min-w-0 border-t border-[var(--color-profile-border)] pt-8 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
                     <h2 className="font-[family-name:var(--font-display)] text-lg font-extrabold text-[var(--color-profile-navy)] md:text-xl">
-                      Khách hàng & dự án
+                      Kết quả đạt được
                     </h2>
-                    <div className="mt-5 flex flex-wrap gap-5 sm:gap-6">
-                      {CLIENTS.map((client) => (
-                        <LogoPlaceholder
-                          key={client.name}
-                          name={client.name}
-                          imageSrc={client.imageSrc}
-                        />
+                    <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3">
+                      {HIGHLIGHTS.map((item) => (
+                        <div key={item.label} className="py-1 text-center">
+                          <p className="font-[family-name:var(--font-display)] text-xl font-extrabold tabular-nums text-[var(--color-profile-navy)] sm:text-2xl">
+                            {item.value}
+                          </p>
+                          <p className="mt-1 text-[10px] font-medium text-[var(--color-profile-muted)] sm:text-[11px]">
+                            {item.label}
+                          </p>
+                        </div>
                       ))}
                     </div>
                   </div>
                 </div>
+              </div>
 
-                <div className="min-w-0 border-t border-[var(--color-profile-border)] pt-8 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
-                  <h2 className="font-[family-name:var(--font-display)] text-lg font-extrabold text-[var(--color-profile-navy)] md:text-xl">
-                    Kết quả đạt được
-                  </h2>
-                  <div className="mt-4 grid grid-cols-2 gap-3">
-                    {HIGHLIGHTS.map((item) => (
-                      <div
-                        key={item.label}
-                        className="rounded-2xl border border-[var(--color-profile-border)] bg-[var(--color-profile-cream)]/40 px-3 py-3 text-center sm:px-4"
+              {/* Abilities & education */}
+              <div className="p-6 md:p-8">
+                <h2 className="font-[family-name:var(--font-display)] text-lg font-extrabold text-[var(--color-profile-navy)] md:text-xl">
+                  Kỹ năng nổi bật
+                </h2>
+
+                <div className="mt-5 grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8">
+                  <AbilityList items={ABILITIES_LEFT} />
+                  <AbilityList items={ABILITIES_RIGHT} />
+                </div>
+
+                <div className="mt-8 border-t border-[var(--color-profile-border)] pt-8">
+                  <h3 className="font-[family-name:var(--font-display)] text-base font-extrabold text-[var(--color-profile-navy)]">
+                    Học vấn và chứng chỉ
+                  </h3>
+                  <ul className="mt-4 divide-y divide-[var(--color-profile-border)]">
+                    {EDUCATION.map((item) => (
+                      <li
+                        key={item.title}
+                        className="flex flex-col gap-0.5 py-3 first:pt-0 last:pb-0 sm:flex-row sm:items-start sm:justify-between sm:gap-4"
                       >
-                        <p className="font-[family-name:var(--font-display)] text-xl font-extrabold tabular-nums text-[var(--color-profile-navy)] sm:text-2xl">
-                          {item.value}
-                        </p>
-                        <p className="mt-1 text-[10px] font-medium text-[var(--color-profile-muted)] sm:text-[11px]">
-                          {item.label}
-                        </p>
-                      </div>
+                        <div className="min-w-0">
+                          <p className="text-sm font-semibold text-[var(--color-profile-navy)]">
+                            {item.title}
+                          </p>
+                          <p className="mt-0.5 text-xs text-[var(--color-profile-muted)]">
+                            {item.org}
+                          </p>
+                        </div>
+                        <time className="shrink-0 text-xs font-medium tabular-nums text-[var(--color-profile-body)] sm:text-right">
+                          {item.period}
+                        </time>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 </div>
-              </div>
-            </article>
-
-            {/* Abilities & education */}
-            <article className="rounded-[var(--radius-profile)] bg-white/60 p-6 md:p-8">
-              <h2 className="font-[family-name:var(--font-display)] text-lg font-extrabold text-[var(--color-profile-navy)] md:text-xl">
-                Kỹ năng nổi bật
-              </h2>
-
-              <div className="mt-5 grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8">
-                <AbilityList items={ABILITIES_LEFT} />
-                <AbilityList items={ABILITIES_RIGHT} />
-              </div>
-
-              <div className="mt-8 border-t border-[var(--color-profile-border)] pt-8">
-                <h3 className="font-[family-name:var(--font-display)] text-base font-extrabold text-[var(--color-profile-navy)]">
-                  Học vấn và chứng chỉ
-                </h3>
-                <ul className="mt-4 divide-y divide-[var(--color-profile-border)]">
-                  {EDUCATION.map((item) => (
-                    <li
-                      key={item.title}
-                      className="flex flex-col gap-0.5 py-3 first:pt-0 last:pb-0 sm:flex-row sm:items-start sm:justify-between sm:gap-4"
-                    >
-                      <div className="min-w-0">
-                        <p className="text-sm font-semibold text-[var(--color-profile-navy)]">
-                          {item.title}
-                        </p>
-                        <p className="mt-0.5 text-xs text-[var(--color-profile-muted)]">
-                          {item.org}
-                        </p>
-                      </div>
-                      <time className="shrink-0 text-xs font-medium tabular-nums text-[var(--color-profile-body)] sm:text-right">
-                        {item.period}
-                      </time>
-                    </li>
-                  ))}
-                </ul>
               </div>
             </article>
           </div>

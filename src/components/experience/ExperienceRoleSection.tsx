@@ -62,8 +62,8 @@ export function ExperienceRoleSection({
 }: ExperienceRoleSectionProps) {
   return (
     <section className="bg-[var(--color-canvas)] pb-10 pt-2 sm:pb-14 md:pb-20">
-      <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
-        <div className="rounded-[24px] border border-[var(--color-hairline)]/80 bg-[var(--color-surface-soft)] p-4 shadow-[0_16px_40px_rgba(0,0,0,0.05)] sm:rounded-[32px] sm:p-7 lg:p-10">
+      <div className="mx-auto w-full max-w-[1320px] px-4 sm:px-6 lg:px-8">
+        <div className="rounded-[var(--radius-profile)] border border-[var(--color-hairline)] bg-[var(--color-white)]/60 p-4 sm:p-7 lg:p-10">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(280px,1.1fr)] lg:items-start lg:gap-12">
             <div className={reversed ? "lg:col-start-2" : "lg:pr-4"}>
               <h2 className="mt-2 font-[family-name:var(--font-display)] text-[clamp(1.25rem,2.2vw,1.65rem)] font-extrabold leading-tight tracking-tight text-[var(--color-primary)]">
@@ -89,7 +89,7 @@ export function ExperienceRoleSection({
                 reversed ? "lg:col-start-1 lg:row-start-1 lg:-mr-2" : "lg:-ml-2"
               }`}
             >
-              <div className="rounded-[24px] border border-[var(--color-border-strong)] bg-[var(--color-canvas)] p-6 shadow-[0_12px_28px_rgba(0,0,0,0.08)] sm:p-7">
+              <div className="rounded-[var(--radius-profile)] border border-[var(--color-hairline)] bg-[var(--color-canvas)] p-6 sm:p-7">
                 <div className="flex items-start justify-between gap-4">
                   <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-2xl border border-[var(--color-hairline)] bg-[var(--color-white)] p-2 sm:h-[72px] sm:w-[72px]">
                     <Image

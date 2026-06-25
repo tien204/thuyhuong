@@ -52,9 +52,9 @@ export function Ribbon3d({ number, tag, ribbonText }: Ribbon3dConfig) {
         </div>
       </div>
 
-      <div className="relative z-20 mx-auto w-full max-w-[1280px]">
+      <div className="relative z-20 mx-auto w-full max-w-[1320px] px-4 sm:px-6 lg:px-8">
         <div className="relative h-[min(42vw,320px)] min-h-[220px] sm:min-h-[260px] md:min-h-[300px]">
-          <div className="absolute left-0 top-[14%] z-30 flex max-w-[calc(100%-2rem)] flex-col items-start gap-2 pl-4 sm:top-[16%] sm:max-w-none sm:flex-row sm:items-center sm:gap-4 sm:pl-6 md:pl-8">
+          <div className="absolute left-0 top-[14%] z-30 flex max-w-[calc(100%-2rem)] flex-col items-start gap-2 sm:top-[16%] sm:max-w-none sm:flex-row sm:items-center sm:gap-4">
             <span className="font-[family-name:var(--font-ribbon)] text-[clamp(2.25rem,10vw,5.5rem)] font-black leading-none tracking-[-0.04em] text-[var(--color-primary)]">
               {number}
             </span>

@@ -4,6 +4,7 @@ import { CaseStudySectionBar } from "@/components/experience/CaseStudySectionBar
 import { EclipseClothingExperience } from "@/components/experience/EclipseClothingExperience";
 import { ExperienceCaseStudy } from "@/components/experience/ExperienceCaseStudy";
 import { MoodboardSectionBar } from "@/components/experience/MoodboardSectionBar";
+import { ContactSectionBridge } from "@/components/contact/ContactSectionBridge";
 import { WorkContactSection } from "@/components/contact/WorkContactSection";
 import { RebrandCocoNamaSectionBar } from "@/components/experience/RebrandCocoNamaSectionBar";
 import { ProfileContent } from "@/components/profile/ProfileContent";
@@ -30,6 +31,7 @@ export default function Home() {
         ribbonText="Eclipse Clothing"
       />
       <EclipseClothingExperience />
+      <ContactSectionBridge />
       <Ribbon3d
         number="03"
         tag="Liên hệ công việc"

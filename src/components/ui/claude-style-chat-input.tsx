@@ -47,14 +47,14 @@ export default function ClaudeChatInput({
   }, [disabled, isLoading]);
 
   useEffect(() => {
-    if (disabled || isLoading) return;
+    if (embedded || disabled || isLoading) return;
 
     const frame = requestAnimationFrame(() => {
       focusInput();
     });
 
     return () => cancelAnimationFrame(frame);
-  }, [disabled, isLoading, placeholder, focusInput]);
+  }, [embedded, disabled, isLoading, placeholder, focusInput]);
 
   const handleSend = () => {
     const textarea = textareaRef.current;
@@ -90,7 +90,6 @@ export default function ClaudeChatInput({
         <textarea
           ref={textareaRef}
           rows={1}
-          autoFocus
           disabled={disabled || isLoading}
           placeholder={placeholder}
           onInput={resizeTextarea}

@@ -5,7 +5,7 @@ import Image from "next/image";
 export function ExperienceCaseStudy() {
   return (
     <section className="overflow-x-hidden bg-[var(--color-canvas)] pb-12 md:pb-20">
-      <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-[1320px] px-4 sm:px-6 lg:px-8">
         <div className="rounded-[24px] bg-[var(--color-surface-soft)] p-4 shadow-[0_16px_40px_rgba(0,0,0,0.06)] sm:rounded-[32px] sm:p-7 lg:p-10">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(280px,0.95fr)] lg:items-start xl:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)]">
             <div className="min-w-0">

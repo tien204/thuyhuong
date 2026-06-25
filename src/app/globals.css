@@ -74,8 +74,8 @@
   --color-profile-heading: var(--color-green-starbucks);
 
   /* Typography */
-  --font-sans: var(--font-inter), var(--font-vietnam), "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-display: var(--font-inter), var(--font-vietnam), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-sans: var(--font-vietnam), var(--font-inter), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-display: var(--font-vietnam), var(--font-inter), "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-vietnamese: var(--font-vietnam), var(--font-inter), "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-serif: "Iowan Old Style", Georgia, serif;
   --font-script: var(--font-caveat), "Kalam", cursive;
@@ -186,7 +186,7 @@ body {
 body {
   background: var(--color-neutral-warm);
   color: var(--color-text);
-  font-family: var(--font-sans);
+  font-family: var(--font-vietnamese);
   font-size: var(--text-body);
   line-height: var(--line-height-body);
   letter-spacing: var(--letter-spacing-tight);
@@ -508,6 +508,62 @@ body {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* — Chat message enter — */
+
+.chat-message-enter {
+  animation: profile-fade-up 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.chat-typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 3.5rem;
+  min-height: 1.25rem;
+}
+
+.chat-typing-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-profile-muted);
+  opacity: 0.35;
+  animation: chat-typing-pulse 1.2s ease-in-out infinite;
+}
+
+.chat-typing-dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.chat-typing-dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes chat-typing-pulse {
+  0%,
+  80%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.85);
+  }
+
+  40% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chat-message-enter {
+    animation: none;
+  }
+
+  .chat-typing-dot {
+    animation: none;
+    opacity: 0.6;
   }
 }
 
