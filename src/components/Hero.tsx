@@ -23,7 +23,7 @@ export function Hero() {
           </p>
 
           <h1 className="font-[family-name:var(--font-display)] text-[clamp(2.75rem,12vw,7.5rem)] font-extrabold leading-[0.84] tracking-[-0.04em] sm:text-[clamp(3.25rem,14vw,10rem)] sm:font-black sm:leading-[0.82] sm:tracking-[-0.045em] lg:text-[clamp(3.5rem,16vw,13rem)]">
-            <span className="block text-white">PORTA</span>
+            <span className="block text-white">PORT</span>
             <span className="flex items-end text-[var(--color-hero-ink)]">
               <span>FOLI</span>
               <span className="relative inline-block overflow-visible">
