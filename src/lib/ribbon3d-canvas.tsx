@@ -7,7 +7,7 @@ import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js
 import gsap from "gsap";
 import { usePrefersReducedMotion } from "@/lib/motion";
 
-function cssVar(name: string, fallback: string): string {
+function cssVar(name: string, fallback = ""): string {
   if (typeof window === "undefined") return fallback;
   const value = getComputedStyle(document.documentElement)
     .getPropertyValue(name)
@@ -43,9 +43,6 @@ const PARALLEL_BLEND_FRAC = 0.5;
 
 interface RibbonSceneOptions {
   ribbonText: string;
-  backgroundColor?: string;
-  blue?: string;
-  white?: string;
   align?: "left" | "center" | "right";
 }
 
@@ -370,7 +367,7 @@ function createCylinderMesh(): THREE.Mesh {
 
   const geo = new THREE.CylinderGeometry(CYL.R, CYL.R, height, 96, 1, false);
   const mat = new THREE.MeshBasicMaterial({
-    color: 0xddd9d0,
+    color: new THREE.Color(cssVar("--color-ribbon-cylinder")),
     transparent: true,
     opacity: 0,
     depthWrite: false,
@@ -386,15 +383,30 @@ function padRibbonUnit(text: string): string {
   return padded.length >= 10 ? padded : padded.padEnd(10, " ");
 }
 
+const RIBBON_SCROLL_BASE_DURATION = 7;
+const RIBBON_SPEED_REFERENCE_TEXT = "Titan Agency";
+
+/** Chuẩn hóa tốc độ cuộn theo độ dài chữ — dải 01 làm mốc */
+function getRibbonScrollDuration(ribbonText: string): number {
+  const referenceLen = measureTexUnitLen(
+    padRibbonUnit(RIBBON_SPEED_REFERENCE_TEXT),
+  );
+  const unitLen = measureTexUnitLen(padRibbonUnit(ribbonText));
+
+  if (referenceLen <= 0) return RIBBON_SCROLL_BASE_DURATION;
+
+  return RIBBON_SCROLL_BASE_DURATION * (unitLen / referenceLen);
+}
+
 function createRibbonScene(
   container: HTMLElement,
   options: RibbonSceneOptions,
 ): RibbonSceneHandle {
-  const accent =
-    options.blue ?? cssVar("--color-ribbon-accent", "#00754a");
-  const white = options.white ?? cssVar("--color-on-primary", "#ffffff");
-  const backgroundColor =
-    options.backgroundColor ?? cssVar("--color-canvas", "#ffffff");
+  const accent = cssVar("--color-ribbon-accent");
+  const band = cssVar("--color-ribbon-band");
+  const onAccent = cssVar("--color-ribbon-on-accent");
+  const onBand = cssVar("--color-ribbon-on-band");
+  const backgroundColor = cssVar("--color-ribbon-bg");
   const unit = padRibbonUnit(options.ribbonText);
   const unitLen = measureTexUnitLen(unit);
 
@@ -453,14 +465,16 @@ function createRibbonScene(
   const geo = unifiedRibbonGeo(path, RIBBON_W, WHITE_RIBBON_W, unitLen);
   geo.translate(-pivot.x, -pivot.y, -pivot.z);
 
-  const mapOuter = textTexture(white, accent, unit);
-  const mapInner = textTexture(accent, white, unit, true);
+  const mapOuter = textTexture(band, onBand, unit);
+  const mapInner = textTexture(accent, onAccent, unit, true);
   mapOuter.anisotropy = maxAnisotropy;
   mapInner.anisotropy = maxAnisotropy;
 
+  const scrollDuration = getRibbonScrollDuration(options.ribbonText);
+
   const textures: RibbonTextureAnim[] = [
-    { texture: mapInner, direction: -1, duration: 7 },
-    { texture: mapOuter, direction: 1, duration: 7 },
+    { texture: mapInner, direction: -1, duration: scrollDuration },
+    { texture: mapOuter, direction: 1, duration: scrollDuration },
   ];
 
   const ribbon = new THREE.Mesh(geo, [

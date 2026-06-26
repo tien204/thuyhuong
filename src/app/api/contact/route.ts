@@ -81,7 +81,7 @@ export async function POST(req: Request) {
       subject: `Liên hệ công việc từ ${recruiterName}`,
       html: `
         <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #1b1b1b;">
-          <h2 style="color: #00754a;">Liên hệ công việc mới</h2>
+          <h2 style="color: #89cff0;">Liên hệ công việc mới</h2>
 
           <p><strong>Họ tên nhà tuyển dụng:</strong> ${escapeHtml(recruiterName)}</p>
           <p><strong>Email:</strong> ${escapeHtml(email)}</p>

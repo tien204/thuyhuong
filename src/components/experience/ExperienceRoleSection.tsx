@@ -41,7 +41,7 @@ function SkillTags({ items }: { items: readonly string[] }) {
       {items.map((skill) => (
         <li
           key={skill}
-          className="rounded-[var(--radius-pill)] border border-[var(--color-hairline)] bg-[var(--color-white)] px-3 py-1.5 text-xs font-medium text-[var(--color-primary)]"
+          className="rounded-[var(--radius-pill)] border border-[var(--color-hairline)] bg-[var(--color-white)] px-3 py-1.5 text-xs font-medium text-[var(--color-primary-ink)]"
         >
           {skill}
         </li>
@@ -66,7 +66,7 @@ export function ExperienceRoleSection({
         <div className="rounded-[var(--radius-profile)] border border-[var(--color-hairline)] bg-[var(--color-white)]/60 p-4 sm:p-7 lg:p-10">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(280px,1.1fr)] lg:items-start lg:gap-12">
             <div className={reversed ? "lg:col-start-2" : "lg:pr-4"}>
-              <h2 className="mt-2 font-[family-name:var(--font-display)] text-[clamp(1.25rem,2.2vw,1.65rem)] font-extrabold leading-tight tracking-tight text-[var(--color-primary)]">
+              <h2 className="mt-2 font-[family-name:var(--font-display)] text-[clamp(1.25rem,2.2vw,1.65rem)] font-extrabold leading-tight tracking-tight text-[var(--color-primary-ink)]">
                 {role}
               </h2>
 
@@ -105,7 +105,7 @@ export function ExperienceRoleSection({
                   </time>
                 </div>
 
-                <p className="mt-5 font-[family-name:var(--font-display)] text-2xl font-extrabold leading-tight tracking-tight text-[var(--color-primary)] sm:text-[1.65rem]">
+                <p className="mt-5 font-[family-name:var(--font-display)] text-2xl font-extrabold leading-tight tracking-tight text-[var(--color-primary-ink)] sm:text-[1.65rem]">
                   {company}
                 </p>
                 <p className="mt-1 text-sm font-medium text-[var(--color-body)]">
@@ -119,7 +119,7 @@ export function ExperienceRoleSection({
                         key={metric.label}
                         className="rounded-xl bg-[var(--color-white)] px-1.5 py-2.5 text-center sm:rounded-2xl sm:px-2 sm:py-3"
                       >
-                        <p className="font-[family-name:var(--font-display)] text-base font-extrabold tabular-nums leading-none text-[var(--color-primary)] sm:text-xl">
+                        <p className="font-[family-name:var(--font-display)] text-base font-extrabold tabular-nums leading-none text-[var(--color-primary-ink)] sm:text-xl">
                           {metric.value}
                         </p>
                         <p className="mt-1 text-[9px] font-medium leading-snug text-[var(--color-body)] sm:mt-1.5 sm:text-[10px]">

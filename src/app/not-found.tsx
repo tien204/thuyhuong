@@ -14,7 +14,7 @@ export default function NotFound() {
       </p>
       <Link
         href="/"
-        className="mt-8 inline-flex items-center rounded-[var(--radius-pill)] bg-[var(--color-primary)] px-6 py-3 text-sm font-semibold text-[var(--color-on-primary)] transition-colors hover:bg-[var(--color-green-accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-green-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-hero-navy)]"
+        className="mt-8 inline-flex items-center rounded-[var(--radius-pill)] bg-[var(--color-primary)] px-6 py-3 text-sm font-semibold text-[var(--color-on-primary)] transition-colors hover:bg-[var(--color-primary-active)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand-sky)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-hero-navy)]"
       >
         Về trang chủ
       </Link>

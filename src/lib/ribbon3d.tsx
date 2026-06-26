@@ -45,7 +45,7 @@ function LazyRibbonCanvas({ ribbonText }: { ribbonText: string }) {
 
 export function Ribbon3d({ number, tag, ribbonText }: Ribbon3dConfig) {
   return (
-    <header className="relative isolate w-full overflow-hidden bg-[var(--color-canvas)]">
+    <header className="relative isolate w-full overflow-hidden bg-[var(--color-ribbon-bg)]">
       <div className="pointer-events-none absolute left-1/2 top-0 z-0 h-[min(48vw,380px)] min-h-[260px] w-screen -translate-x-1/2">
         <div className="h-full w-[125vw] translate-x-[2vw] scale-[1.05] origin-[84%_45%]">
           <LazyRibbonCanvas ribbonText={ribbonText} />
@@ -55,10 +55,10 @@ export function Ribbon3d({ number, tag, ribbonText }: Ribbon3dConfig) {
       <div className="relative z-20 mx-auto w-full max-w-[1320px] px-4 sm:px-6 lg:px-8">
         <div className="relative h-[min(42vw,320px)] min-h-[220px] sm:min-h-[260px] md:min-h-[300px]">
           <div className="absolute left-0 top-[14%] z-30 flex max-w-[calc(100%-2rem)] flex-col items-start gap-2 sm:top-[16%] sm:max-w-none sm:flex-row sm:items-center sm:gap-4">
-            <span className="font-[family-name:var(--font-ribbon)] text-[clamp(2.25rem,10vw,5.5rem)] font-black leading-none tracking-[-0.04em] text-[var(--color-primary)]">
+            <span className="font-[family-name:var(--font-ribbon)] text-[clamp(2.25rem,10vw,5.5rem)] font-black leading-none tracking-[-0.04em] text-[var(--color-ribbon-number)]">
               {number}
             </span>
-            <span className="max-w-full rounded-full border-2 border-[var(--color-primary)] px-3 py-1 font-[family-name:var(--font-ribbon)] text-[11px] font-black leading-tight tracking-[0.06em] text-[var(--color-primary)] sm:px-5 sm:py-1.5 sm:text-base sm:tracking-[0.08em]">
+            <span className="max-w-full rounded-full border-2 border-[var(--color-ribbon-tag-border)] px-3 py-1 font-[family-name:var(--font-ribbon)] text-[11px] font-black leading-tight tracking-[0.06em] text-[var(--color-ribbon-tag-text)] sm:px-5 sm:py-1.5 sm:text-base sm:tracking-[0.08em]">
               {tag}
             </span>
           </div>

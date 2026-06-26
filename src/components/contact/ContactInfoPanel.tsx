@@ -37,13 +37,13 @@ export const ContactInfoPanel = forwardRef<HTMLElement>(
         ref={ref}
         aria-label="Thông tin liên hệ trực tiếp"
         className={cn(
-          "profile-reveal profile-reveal-delay-1 shadow-[0_12px_40px_-16px_rgba(0,49,139,0.16)]",
+          "profile-reveal profile-reveal-delay-1 shadow-[var(--shadow-profile-panel)]",
           CONTACT_INFO_SHELL_CLASS,
         )}
       >
         <div className="relative shrink-0 overflow-hidden bg-[var(--color-profile-navy)] px-5 py-6 text-white sm:px-6 sm:py-7">
           <div
-            className="pointer-events-none absolute -right-8 -top-10 h-32 w-32 rounded-full bg-[var(--color-green-accent)]/20 blur-2xl"
+            className="pointer-events-none absolute -right-8 -top-10 h-32 w-32 rounded-full bg-[var(--color-accent)]/50 blur-2xl"
             aria-hidden
           />
           <div className="relative flex items-center gap-4">
@@ -107,7 +107,7 @@ export const ContactInfoPanel = forwardRef<HTMLElement>(
                   className="flex items-center gap-2.5 text-sm text-[var(--color-profile-body)]"
                 >
                   <span
-                    className="h-1 w-3 shrink-0 rounded-full bg-[var(--color-green-accent)]"
+                    className="h-1 w-3 shrink-0 rounded-full bg-[var(--color-pink-strong)]"
                     aria-hidden
                   />
                   {role}

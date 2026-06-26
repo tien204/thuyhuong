@@ -80,7 +80,7 @@ export default function RootLayout({
       <body className="overflow-x-hidden">
         <a
           href="#profile"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-[var(--radius-pill)] focus:bg-[var(--color-primary)] focus:px-4 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-[var(--color-on-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-green-accent)] focus:ring-offset-2"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-[var(--radius-pill)] focus:bg-[var(--color-primary)] focus:px-4 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-[var(--color-on-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:ring-offset-2"
         >
           Bỏ qua tới nội dung chính
         </a>

@@ -23,7 +23,7 @@ export function ExperienceSectionBar({
           />
 
           <div className="shadow-frap flex min-w-0 flex-1 flex-col gap-2.5 rounded-[var(--radius-pill)] bg-[var(--color-primary)] px-4 py-3 sm:flex-row sm:items-center sm:gap-5 sm:px-7 sm:py-4 md:px-8">
-            <span className="shadow-card w-fit shrink-0 rounded-[var(--radius-pill)] bg-[var(--color-white)] px-4 py-2 font-[family-name:var(--font-display)] text-sm font-bold tracking-tight text-[var(--color-primary)] sm:px-8 sm:py-3 sm:text-lg">
+            <span className="shadow-card w-fit shrink-0 rounded-[var(--radius-pill)] bg-[var(--color-white)] px-4 py-2 font-[family-name:var(--font-display)] text-sm font-bold tracking-tight text-[var(--color-primary-ink)] sm:px-8 sm:py-3 sm:text-lg">
               {label}
             </span>
 

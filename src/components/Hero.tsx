@@ -25,30 +25,7 @@ export function Hero() {
           <h1 className="font-[family-name:var(--font-display)] text-[clamp(2.75rem,12vw,7.5rem)] font-extrabold leading-[0.84] tracking-[-0.04em] sm:text-[clamp(3.25rem,14vw,10rem)] sm:font-black sm:leading-[0.82] sm:tracking-[-0.045em] lg:text-[clamp(3.5rem,16vw,13rem)]">
             <span className="block text-white">PORT</span>
             <span className="flex items-end text-[var(--color-hero-ink)]">
-              <span>FOLI</span>
-              <span className="relative inline-block overflow-visible">
-                <span className="invisible select-none" aria-hidden>
-                  O
-                </span>
-                <span
-                  className="absolute bottom-0 left-1/2 w-[1.15em] -translate-x-1/2"
-                  aria-hidden
-                >
-                  <span className="relative block translate-y-[0.2em]">
-                    <Image
-                      src="/hero-avatar.png"
-                      alt=""
-                      width={400}
-                      height={400}
-                      priority
-                      className="mx-auto block h-[1.3em] w-auto max-w-none object-contain"
-                    />
-                    <span className="pointer-events-none absolute left-1/2 top-[96%] -translate-x-1/2 whitespace-nowrap font-[family-name:var(--font-caveat)] text-[0.15em] leading-normal tracking-[0.14em] text-white">
-                      2026
-                    </span>
-                  </span>
-                </span>
-              </span>
+              <span>FOLIO</span>
             </span>
           </h1>
         </div>

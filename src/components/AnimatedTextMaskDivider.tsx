@@ -180,9 +180,9 @@ export function AnimatedTextMaskDivider() {
   return (
     <section className="relative h-[132px] w-full overflow-hidden bg-[var(--color-canvas)] sm:h-[150px]">
       <div ref={wrapRef} className="relative h-full w-full overflow-hidden">
-        {/* Thanh xanh trên */}
+        {/* Thanh navy trên */}
         <div
-          className="absolute left-0 top-0 z-10 w-full bg-[var(--color-primary)]"
+          className="absolute left-0 top-0 z-10 w-full bg-[var(--color-brand-navy)]"
           style={{ height: BAR_H }}
         />
 
@@ -210,10 +210,10 @@ export function AnimatedTextMaskDivider() {
           ))}
         </div>
 
-        {/* Nửa pill xanh chạy */}
+        {/* Nửa pill navy chạy */}
         <div
           ref={tabRef}
-          className="absolute left-0 top-0 z-20 min-w-[200px] overflow-hidden bg-[var(--color-primary)] will-change-transform sm:min-w-[280px]"
+          className="absolute left-0 top-0 z-20 min-w-[200px] overflow-hidden bg-[var(--color-brand-navy)] will-change-transform sm:min-w-[280px]"
           style={{
             height: TAB_H,
             borderTopLeftRadius: 0,
@@ -231,7 +231,7 @@ export function AnimatedTextMaskDivider() {
             {labels.map((item, index) => (
               <span
                 key={item}
-                className={`${labelClassName} text-[var(--color-on-primary)] ${
+                className={`${labelClassName} text-white ${
                   index === 0
                     ? "justify-self-start"
                     : index === 1

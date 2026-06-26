@@ -1,15 +1,16 @@
 ---
 name: Đinh Thị Thủy Hương Portfolio
-description: Warm café canvas, Starbucks green accent, editorial case-study layout
+description: Warm café canvas, sky blue #89CFF0 accent, editorial case-study layout
 colors:
   canvas: "#f2f0eb"
   surface-soft: "#f9f9f9"
   surface-strong: "#edebe9"
   white: "#ffffff"
-  primary: "#006241"
-  primary-active: "#00754a"
-  green-house: "#1e3932"
-  green-light: "#d4e9e2"
+  primary: "#89cff0"
+  primary-ink: "#2a6f8f"
+  primary-active: "#6eb8e5"
+  blue-deep: "#1a4559"
+  blue-light: "#dff0f9"
   gold: "#cba258"
   gold-lightest: "#faf6ee"
   ink: "rgba(0, 0, 0, 0.87)"

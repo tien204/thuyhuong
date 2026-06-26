@@ -78,11 +78,31 @@ const EDUCATION = [
   },
 ] as const;
 
-const HIGHLIGHTS = [
-  { value: "4×", label: "Tái ký BĐS" },
-  { value: "70+", label: "Khách sự kiện" },
-  { value: "500K+", label: "Lượt xem" },
-  { value: "B2", label: "VSTEP" },
+const ACHIEVEMENTS = [
+  {
+    value: "4 lần",
+    title: "Tái ký khách hàng BĐS",
+    detail:
+      "Hỗ trợ khách hàng bất động sản gia hạn hợp đồng branding, kéo dài đến năm 2027.",
+  },
+  {
+    value: "~70",
+    title: "Khách tham dự sự kiện",
+    detail:
+      "Year End Event chủ đề “Phi mã” — lên concept và điều phối tại Titan Agency.",
+  },
+  {
+    value: "500K+",
+    title: "Lượt xem video",
+    detail:
+      "Nội dung sản xuất cho Lạc Coffee & Desserts, Trần Sĩ Đức và các kênh đối tác.",
+  },
+  {
+    value: "B2",
+    title: "Tiếng Anh VSTEP",
+    detail:
+      "Chứng chỉ bậc 4/6 — đọc tài liệu và giao tiếp công việc bằng tiếng Anh.",
+  },
 ] as const;
 
 const SUMMARY =
@@ -117,7 +137,7 @@ export function ProfileContent() {
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,340px)_1fr] lg:gap-8 xl:grid-cols-[minmax(0,360px)_1fr]">
           {/* Profile card — left */}
           <article className="relative lg:row-span-2">
-            <div className="overflow-hidden rounded-[var(--radius-profile)] bg-white shadow-[0_8px_30px_-12px_rgba(0,49,139,0.15)]">
+            <div className="overflow-hidden rounded-[var(--radius-profile)] bg-white shadow-[var(--shadow-profile-card)]">
               <div className="relative aspect-[4/5] w-full overflow-hidden">
                 <Image
                   src="/real-avatar.jpg"
@@ -188,8 +208,8 @@ export function ProfileContent() {
             <article className="divide-y divide-[var(--color-profile-border)] rounded-[var(--radius-profile)] border border-[var(--color-profile-border)] bg-white/90">
               {/* Tools, clients & highlights */}
               <div className="p-6 md:p-8">
-                <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_minmax(0,220px)] lg:gap-0 xl:grid-cols-[1fr_minmax(0,240px)]">
-                  <div className="min-w-0">
+                <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-8">
+                  <div className="min-w-0 lg:col-span-1">
                     <div>
                       <h2 className="font-[family-name:var(--font-display)] text-lg font-extrabold text-[var(--color-profile-navy)] md:text-xl">
                         Công cụ
@@ -221,22 +241,29 @@ export function ProfileContent() {
                     </div>
                   </div>
 
-                  <div className="min-w-0 border-t border-[var(--color-profile-border)] pt-8 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
+                  <div className="min-w-0 border-t border-[var(--color-profile-border)] pt-8 lg:col-span-2 lg:border-l lg:border-t-0 lg:pl-4 lg:pt-0 xl:pl-6">
                     <h2 className="font-[family-name:var(--font-display)] text-lg font-extrabold text-[var(--color-profile-navy)] md:text-xl">
                       Kết quả đạt được
                     </h2>
-                    <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3">
-                      {HIGHLIGHTS.map((item) => (
-                        <div key={item.label} className="py-1 text-center">
-                          <p className="font-[family-name:var(--font-display)] text-xl font-extrabold tabular-nums text-[var(--color-profile-navy)] sm:text-2xl">
+                    <p className="mt-2 text-xs leading-relaxed text-[var(--color-profile-muted)] sm:text-[13px]">
+                      Số liệu nổi bật từ các dự án branding, sự kiện và sản xuất
+                      nội dung.
+                    </p>
+                    <ul className="mt-5 grid grid-cols-2 gap-x-3 gap-y-5 sm:gap-x-4">
+                      {ACHIEVEMENTS.map((item) => (
+                        <li key={item.title} className="min-w-0">
+                          <p className="font-[family-name:var(--font-display)] text-xl font-extrabold tabular-nums leading-none text-[var(--color-profile-navy)] sm:text-2xl">
                             {item.value}
                           </p>
-                          <p className="mt-1 text-[10px] font-medium text-[var(--color-profile-muted)] sm:text-[11px]">
-                            {item.label}
+                          <p className="mt-1.5 text-xs font-semibold leading-snug text-[var(--color-profile-navy)] sm:text-sm">
+                            {item.title}
                           </p>
-                        </div>
+                          <p className="mt-1 text-[11px] leading-relaxed text-[var(--color-profile-body)] sm:text-xs">
+                            {item.detail}
+                          </p>
+                        </li>
                       ))}
-                    </div>
+                    </ul>
                   </div>
                 </div>
               </div>

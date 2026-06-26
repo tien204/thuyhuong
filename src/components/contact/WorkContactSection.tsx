@@ -332,7 +332,7 @@ export function WorkContactSection() {
         <div className="grid grid-cols-1 items-stretch gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(280px,340px)] lg:gap-8 xl:grid-cols-[minmax(0,1fr)_360px]">
           <div
             className={cn(
-              "profile-reveal shadow-[0_12px_40px_-16px_rgba(0,49,139,0.2)]",
+              "profile-reveal shadow-[var(--shadow-profile-panel)]",
               CONTACT_CHAT_SHELL_CLASS,
             )}
             style={chatHeight ? { height: chatHeight } : undefined}
@@ -361,7 +361,7 @@ export function WorkContactSection() {
                   <span className="relative inline-block font-semibold">
                     anh/chị
                     <svg
-                      className="absolute -bottom-0.5 left-0 h-[10px] w-full text-[var(--color-green-accent)]"
+                      className="absolute -bottom-0.5 left-0 h-[10px] w-full text-[var(--color-pink-strong)]"
                       viewBox="0 0 140 24"
                       fill="none"
                       preserveAspectRatio="none"
@@ -370,7 +370,7 @@ export function WorkContactSection() {
                       <path
                         d="M6 16 Q 70 24, 134 14"
                         stroke="currentColor"
-                        strokeWidth="3"
+                        strokeWidth="3.5"
                         strokeLinecap="round"
                       />
                     </svg>
@@ -451,7 +451,7 @@ export function WorkContactSection() {
                 ) : null}
 
                 {sendStatus === "sent" ? (
-                  <p className="text-sm font-semibold text-[var(--color-primary)]">
+                  <p className="text-sm font-semibold text-[var(--color-primary-ink)]">
                     Thông tin đã được gửi. Hương sẽ phản hồi trong 24–48 giờ làm
                     việc.
                   </p>

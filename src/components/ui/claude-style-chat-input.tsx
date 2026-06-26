@@ -82,7 +82,7 @@ export default function ClaudeChatInput({
         "w-full",
         embedded
           ? "rounded-xl border border-[var(--color-profile-border)] bg-[var(--color-profile-cream)]/50 p-2"
-          : "max-w-3xl rounded-2xl border border-[var(--color-profile-border)] bg-white p-3 shadow-[0_8px_30px_-12px_rgba(0,49,139,0.12)]",
+          : "max-w-3xl rounded-2xl border border-[var(--color-profile-border)] bg-white p-3 shadow-[var(--shadow-profile-card)]",
         className,
       )}
     >

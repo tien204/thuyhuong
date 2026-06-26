@@ -31,7 +31,7 @@ const TIKTOK_VIDEO_IDS = [
 const slideBasis = "basis-[min(300px,calc(100vw-4.5rem))] pl-0";
 
 const carouselNavClassName =
-  "size-11 min-h-11 min-w-11 border-[var(--color-hairline)] bg-[var(--color-white)] text-[var(--color-primary)] hover:bg-[var(--color-surface-soft)] disabled:opacity-40";
+  "size-11 min-h-11 min-w-11 border-[var(--color-hairline)] bg-[var(--color-white)] text-[var(--color-primary-ink)] hover:bg-[var(--color-surface-soft)] disabled:opacity-40";
 
 export function SocialVideoCarousel() {
   return (
