@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { ReactNode } from "react";
 
 export type ExperienceRoleMetric = {
   value: string;
@@ -7,13 +8,14 @@ export type ExperienceRoleMetric = {
 
 export type ExperienceRoleSectionProps = {
   role: string;
-  company: string;
-  period: string;
-  logo: { src: string; alt: string };
+  company?: string;
+  period?: string;
+  logo?: { src: string; alt: string };
   responsibilities: readonly string[];
   skills: readonly string[];
   metrics?: readonly ExperienceRoleMetric[];
   reversed?: boolean;
+  aside?: ReactNode;
 };
 
 function ResponsibilityList({ items }: { items: readonly string[] }) {
@@ -59,6 +61,7 @@ export function ExperienceRoleSection({
   skills,
   metrics,
   reversed = false,
+  aside,
 }: ExperienceRoleSectionProps) {
   return (
     <section className="bg-[var(--color-canvas)] pb-10 pt-2 sm:pb-14 md:pb-20">
@@ -89,47 +92,49 @@ export function ExperienceRoleSection({
                 reversed ? "lg:col-start-1 lg:row-start-1 lg:-mr-2" : "lg:-ml-2"
               }`}
             >
-              <div className="rounded-[var(--radius-profile)] border border-[var(--color-hairline)] bg-[var(--color-canvas)] p-6 sm:p-7">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-2xl border border-[var(--color-hairline)] bg-[var(--color-white)] p-2 sm:h-[72px] sm:w-[72px]">
-                    <Image
-                      src={logo.src}
-                      alt={logo.alt}
-                      width={56}
-                      height={56}
-                      className="h-full w-full object-contain"
-                    />
+              {aside ?? (
+                <div className="rounded-[var(--radius-profile)] border border-[var(--color-hairline)] bg-[var(--color-canvas)] p-6 sm:p-7">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-2xl border border-[var(--color-hairline)] bg-[var(--color-white)] p-2 sm:h-[72px] sm:w-[72px]">
+                      <Image
+                        src={logo!.src}
+                        alt={logo!.alt}
+                        width={56}
+                        height={56}
+                        className="h-full w-full object-contain"
+                      />
+                    </div>
+                    <time className="shrink-0 rounded-[var(--radius-pill)] bg-[var(--color-green-light)] px-3 py-1.5 text-[11px] font-semibold tabular-nums text-[var(--color-green-house)] sm:text-xs">
+                      {period}
+                    </time>
                   </div>
-                  <time className="shrink-0 rounded-[var(--radius-pill)] bg-[var(--color-green-light)] px-3 py-1.5 text-[11px] font-semibold tabular-nums text-[var(--color-green-house)] sm:text-xs">
-                    {period}
-                  </time>
+
+                  <p className="mt-5 font-[family-name:var(--font-display)] text-2xl font-extrabold leading-tight tracking-tight text-[var(--color-primary-ink)] sm:text-[1.65rem]">
+                    {company}
+                  </p>
+                  <p className="mt-1 text-sm font-medium text-[var(--color-body)]">
+                    {role}
+                  </p>
+
+                  {metrics && metrics.length > 0 ? (
+                    <div className="mt-6 grid grid-cols-3 gap-1.5 border-t border-[var(--color-hairline)] pt-6 sm:gap-2">
+                      {metrics.map((metric) => (
+                        <div
+                          key={metric.label}
+                          className="rounded-xl bg-[var(--color-white)] px-1.5 py-2.5 text-center sm:rounded-2xl sm:px-2 sm:py-3"
+                        >
+                          <p className="font-[family-name:var(--font-display)] text-base font-extrabold tabular-nums leading-none text-[var(--color-primary-ink)] sm:text-xl">
+                            {metric.value}
+                          </p>
+                          <p className="mt-1 text-[9px] font-medium leading-snug text-[var(--color-body)] sm:mt-1.5 sm:text-[10px]">
+                            {metric.label}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  ) : null}
                 </div>
-
-                <p className="mt-5 font-[family-name:var(--font-display)] text-2xl font-extrabold leading-tight tracking-tight text-[var(--color-primary-ink)] sm:text-[1.65rem]">
-                  {company}
-                </p>
-                <p className="mt-1 text-sm font-medium text-[var(--color-body)]">
-                  {role}
-                </p>
-
-                {metrics && metrics.length > 0 ? (
-                  <div className="mt-6 grid grid-cols-3 gap-1.5 border-t border-[var(--color-hairline)] pt-6 sm:gap-2">
-                    {metrics.map((metric) => (
-                      <div
-                        key={metric.label}
-                        className="rounded-xl bg-[var(--color-white)] px-1.5 py-2.5 text-center sm:rounded-2xl sm:px-2 sm:py-3"
-                      >
-                        <p className="font-[family-name:var(--font-display)] text-base font-extrabold tabular-nums leading-none text-[var(--color-primary-ink)] sm:text-xl">
-                          {metric.value}
-                        </p>
-                        <p className="mt-1 text-[9px] font-medium leading-snug text-[var(--color-body)] sm:mt-1.5 sm:text-[10px]">
-                          {metric.label}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                ) : null}
-              </div>
+              )}
             </aside>
           </div>
         </div>

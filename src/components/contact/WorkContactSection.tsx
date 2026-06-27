@@ -317,9 +317,6 @@ export function WorkContactSection() {
     >
       <div className="mx-auto w-full max-w-[1320px] px-4 sm:px-6 lg:px-8">
         <div className="mb-8 max-w-2xl profile-reveal lg:mb-10">
-          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--color-profile-muted)]">
-            Mục 03 · Liên hệ
-          </p>
           <h2 className="mt-2 font-[family-name:var(--font-display)] text-[clamp(1.75rem,4vw,2.5rem)] font-extrabold tracking-tight text-[var(--color-profile-navy)]">
             Liên hệ công việc
           </h2>

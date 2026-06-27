@@ -1,5 +1,6 @@
 import { AnimatedTextMaskDivider } from "@/components/AnimatedTextMaskDivider";
 import { Hero } from "@/components/Hero";
+import { HighlightSection } from "@/components/experience/highlight/HighlightSection";
 import { EclipseClothingExperience } from "@/components/experience/EclipseClothingExperience";
 import { FeaturedProjectsSection } from "@/components/experience/FeaturedProjectsSection";
 import { TitanAgencyExperience } from "@/components/experience/TitanAgencyExperience";
@@ -28,6 +29,12 @@ export default function Home() {
       <EclipseClothingExperience />
       <Ribbon3d
         number="03"
+        tag="Other Brands"
+        ribbonText="Highlight"
+      />
+      <HighlightSection />
+      <Ribbon3d
+        number="04"
         tag="Liên hệ công việc"
         ribbonText="Contact"
       />

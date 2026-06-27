@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Script from "next/script";
+import { cn } from "@/lib/utils";
 import {
   useCallback,
   useEffect,
@@ -19,8 +20,15 @@ declare global {
         parse: (element?: Element | null) => void;
       };
     };
+    tiktokEmbed?: {
+      lib?: {
+        render: (element?: Element | null) => void;
+      };
+    };
   }
 }
+
+const TIKTOK_BLOCKQUOTE_WIDTH = 325;
 
 function useLazyLoad(rootMargin = "400px", eager = false) {
   const [element, setElement] = useState<HTMLDivElement | null>(null);
@@ -161,6 +169,16 @@ export function FacebookSDK() {
   );
 }
 
+export function TikTokEmbedScript() {
+  return (
+    <Script
+      id="tiktok-embed-js"
+      src="https://www.tiktok.com/embed.js"
+      strategy="lazyOnload"
+    />
+  );
+}
+
 export const SOCIAL_EMBED_CARD = {
   width: 300,
   height: 534,
@@ -175,7 +193,10 @@ export function SocialEmbedCard({
 }) {
   return (
     <div
-      className={`aspect-[300/534] w-[min(300px,calc(100vw-4.5rem))] shrink-0 overflow-hidden rounded-[var(--radius-md)] bg-[var(--color-white)] ${className}`}
+      className={cn(
+        "aspect-[300/534] w-[min(300px,calc(100vw-4.5rem))] shrink-0 overflow-hidden rounded-[var(--radius-md)] bg-[var(--color-white)]",
+        className,
+      )}
     >
       {children}
     </div>
@@ -241,6 +262,91 @@ export function TikTokEmbed({
         />
       )}
     </div>
+  );
+}
+
+/** Photo / carousel posts — official blockquote embed, scaled to fit narrow frames. */
+export function TikTokPostEmbed({
+  postId,
+  href,
+  className = "",
+  fillCard = false,
+  eager = false,
+}: {
+  postId: string;
+  href?: string;
+  className?: string;
+  fillCard?: boolean;
+  eager?: boolean;
+}) {
+  const { ref: lazyRef, element, visible } = useLazyLoad("200px", eager);
+  const { setRef: widthRef, width } = useElementWidth(200);
+  const containerRef = mergeRefs(lazyRef, widthRef);
+  const scale = Math.min(1, Math.max(0.48, (width - 2) / TIKTOK_BLOCKQUOTE_WIDTH));
+
+  useEffect(() => {
+    if (!visible || !element || !href) return;
+
+    const render = () => {
+      window.tiktokEmbed?.lib?.render(element);
+    };
+
+    const timer = window.setTimeout(render, 400);
+    const retry = window.setTimeout(render, 1200);
+
+    return () => {
+      window.clearTimeout(timer);
+      window.clearTimeout(retry);
+    };
+  }, [visible, element, href, postId, scale]);
+
+  return (
+    <>
+      <TikTokEmbedScript />
+      <div
+        ref={containerRef}
+        className={cn(
+          "overflow-hidden bg-[var(--color-white)]",
+          fillCard ? "h-full w-full" : "mx-auto w-full rounded-[var(--radius-md)]",
+          className,
+        )}
+      >
+        {!visible ? (
+          <EmbedSkeleton
+            label="TikTok"
+            className={fillCard ? "h-full" : "aspect-[9/16] min-h-0"}
+          />
+        ) : href ? (
+          <div className="relative h-full w-full overflow-hidden">
+            <div
+              className="absolute left-1/2 top-0"
+              style={{
+                width: TIKTOK_BLOCKQUOTE_WIDTH,
+                transform: `translateX(-50%) scale(${scale})`,
+                transformOrigin: "top center",
+              }}
+            >
+              <blockquote
+                className="tiktok-embed !m-0"
+                cite={href}
+                data-video-id={postId}
+                style={{
+                  minWidth: TIKTOK_BLOCKQUOTE_WIDTH,
+                  maxWidth: TIKTOK_BLOCKQUOTE_WIDTH,
+                }}
+              >
+                <section />
+              </blockquote>
+            </div>
+          </div>
+        ) : (
+          <EmbedUnavailable
+            label="TikTok"
+            className={fillCard ? "h-full" : "aspect-[9/16] min-h-0"}
+          />
+        )}
+      </div>
+    </>
   );
 }
 
@@ -350,12 +456,14 @@ export function FacebookReelEmbed({
   className = "",
   fillCard = false,
   eager = false,
+  showFooterLink = true,
 }: {
   href: string;
   width?: number;
   className?: string;
   fillCard?: boolean;
   eager?: boolean;
+  showFooterLink?: boolean;
 }) {
   const { ref: lazyRef, visible } = useLazyLoad("400px", eager);
   const { setRef: widthRef, width: measuredWidth } = useElementWidth(width);
@@ -367,7 +475,10 @@ export function FacebookReelEmbed({
   return (
     <div
       ref={mergeRefs(lazyRef, widthRef)}
-      className={`flex h-full w-full flex-col overflow-hidden bg-[var(--color-white)] ${className}`}
+      className={cn(
+        "flex h-full w-full flex-col overflow-hidden bg-[var(--color-white)]",
+        className,
+      )}
     >
       <div
         className={`relative min-h-0 flex-1 ${fillCard ? "" : "rounded-[var(--radius-md)]"}`}
@@ -388,14 +499,16 @@ export function FacebookReelEmbed({
           <EmbedSkeleton label="Facebook Reel" className="h-full w-full" />
         )}
       </div>
-      <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="btn btn-primary-outlined mx-2 mb-2 mt-1.5 shrink-0 px-3 py-1.5 text-[11px] sm:text-xs"
-      >
-        Xem trên Facebook
-      </a>
+      {showFooterLink ? (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn btn-primary-outlined mx-2 mb-2 mt-1.5 shrink-0 px-3 py-1.5 text-[11px] sm:text-xs"
+        >
+          Xem trên Facebook
+        </a>
+      ) : null}
     </div>
   );
 }
