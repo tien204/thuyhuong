@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Script from "next/script";
 import {
   useCallback,
@@ -331,6 +332,120 @@ export function FacebookVideoEmbed({
   );
 }
 
+function facebookReelIframeSrc(href: string, width: number) {
+  const height = Math.round(width * (SOCIAL_EMBED_CARD.height / SOCIAL_EMBED_CARD.width));
+  const params = new URLSearchParams({
+    href,
+    show_text: "false",
+    width: String(width),
+    height: String(height),
+  });
+  return `https://www.facebook.com/plugins/video.php?${params.toString()}`;
+}
+
+/** Reels: iframe plugin — ổn định hơn XFBML; vẫn có thể bị Meta chặn nhúng theo từng reel. */
+export function FacebookReelEmbed({
+  href,
+  width = SOCIAL_EMBED_CARD.width,
+  className = "",
+  fillCard = false,
+  eager = false,
+}: {
+  href: string;
+  width?: number;
+  className?: string;
+  fillCard?: boolean;
+  eager?: boolean;
+}) {
+  const { ref: lazyRef, visible } = useLazyLoad("400px", eager);
+  const { setRef: widthRef, width: measuredWidth } = useElementWidth(width);
+  const embedWidth = Math.max(measuredWidth, 200);
+  const embedHeight = Math.round(
+    embedWidth * (SOCIAL_EMBED_CARD.height / SOCIAL_EMBED_CARD.width),
+  );
+
+  return (
+    <div
+      ref={mergeRefs(lazyRef, widthRef)}
+      className={`flex h-full w-full flex-col overflow-hidden bg-[var(--color-white)] ${className}`}
+    >
+      <div
+        className={`relative min-h-0 flex-1 ${fillCard ? "" : "rounded-[var(--radius-md)]"}`}
+      >
+        {visible ? (
+          <iframe
+            src={facebookReelIframeSrc(href, embedWidth)}
+            title="Facebook Reel"
+            width={embedWidth}
+            height={embedHeight}
+            className="absolute inset-0 h-full w-full border-0"
+            scrolling="no"
+            allowFullScreen
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+            loading={eager ? "eager" : "lazy"}
+          />
+        ) : (
+          <EmbedSkeleton label="Facebook Reel" className="h-full w-full" />
+        )}
+      </div>
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="btn btn-primary-outlined mx-2 mb-2 mt-1.5 shrink-0 px-3 py-1.5 text-[11px] sm:text-xs"
+      >
+        Xem trên Facebook
+      </a>
+    </div>
+  );
+}
+
+/** Poster tĩnh + mở reel trên Facebook — dùng khi Meta chặn nhúng iframe. */
+export function FacebookReelPosterCard({
+  href,
+  posterSrc,
+  posterAlt,
+  eager = false,
+}: {
+  href: string;
+  posterSrc: string;
+  posterAlt: string;
+  eager?: boolean;
+}) {
+  return (
+    <div className="flex h-full w-full flex-col overflow-hidden bg-[var(--color-white)]">
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group relative min-h-0 flex-1 overflow-hidden"
+      >
+        <Image
+          src={posterSrc}
+          alt={posterAlt}
+          fill
+          className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+          sizes="300px"
+          priority={eager}
+        />
+        <span className="absolute inset-0 flex items-center justify-center bg-[rgba(21,42,64,0.28)] transition-colors duration-300 group-hover:bg-[rgba(21,42,64,0.38)]">
+          <span className="rounded-[var(--radius-pill)] bg-[var(--color-white)] px-4 py-2 text-xs font-semibold text-[var(--color-primary-ink)] shadow-[var(--shadow-card)]">
+            Phát trên Facebook
+          </span>
+        </span>
+      </a>
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="btn btn-primary-outlined mx-2 mb-2 mt-1.5 shrink-0 px-3 py-1.5 text-[11px] sm:text-xs"
+      >
+        Xem trên Facebook
+      </a>
+    </div>
+  );
+}
+
 export function FacebookPostEmbed({
   href,
   width,
@@ -338,6 +453,8 @@ export function FacebookPostEmbed({
   className = "",
   skipSdk = false,
   fluid = true,
+  fillCard = false,
+  eager = false,
 }: {
   href: string;
   width?: number;
@@ -345,8 +462,10 @@ export function FacebookPostEmbed({
   className?: string;
   skipSdk?: boolean;
   fluid?: boolean;
+  fillCard?: boolean;
+  eager?: boolean;
 }) {
-  const { ref: lazyRef, element, visible } = useLazyLoad();
+  const { ref: lazyRef, element, visible } = useLazyLoad("400px", eager);
   const { setRef: widthRef, width: measuredWidth } = useElementWidth(width ?? 480);
   const embedWidth = fluid ? measuredWidth : (width ?? 480);
   const { state, markReady } = useEmbedLoadState(visible);
@@ -385,24 +504,30 @@ export function FacebookPostEmbed({
   return (
     <div
       ref={mergeRefs(lazyRef, fluid ? widthRef : undefined)}
-      className={`mx-auto w-full overflow-hidden rounded-[var(--radius-md)] bg-[var(--color-white)] ${className}`}
-      style={fluid ? undefined : { maxWidth: width }}
+      className={`overflow-hidden bg-[var(--color-white)] ${fillCard ? "flex h-full w-full items-center justify-center" : "mx-auto w-full rounded-[var(--radius-md)]"} ${className}`}
+      style={fluid && !fillCard ? undefined : fillCard ? undefined : { maxWidth: width }}
     >
       {!skipSdk ? <FacebookSDK /> : null}
 
       {visible ? (
         state === "unavailable" ? (
-          <EmbedUnavailable label="Facebook post" className="min-h-[320px]" />
+          <EmbedUnavailable
+            label="Facebook post"
+            className={fillCard ? "h-full w-full" : "min-h-[320px]"}
+          />
         ) : (
           <div
-            className="fb-post [&_span]:!max-w-full"
+            className={`fb-post [&_span]:!max-w-full ${fillCard ? "max-h-full overflow-hidden" : ""}`}
             data-href={href}
             data-width={embedWidth}
             data-show-text={showText}
           />
         )
       ) : (
-        <EmbedSkeleton label="Facebook post" className="min-h-[320px]" />
+        <EmbedSkeleton
+          label="Facebook post"
+          className={fillCard ? "h-full w-full" : "min-h-[320px]"}
+        />
       )}
     </div>
   );

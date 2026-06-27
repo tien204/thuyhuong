@@ -7,8 +7,9 @@ const CANVA_MOODBOARD_SRC =
 export function MoodboardSectionBar() {
   return (
     <ExperienceSectionBar
+      compact
       label="Moodboard"
-      description="Moodboard trước buổi screening campaign here.olong và Coco Nama."
+      description="Moodboard screening campaign here.olong và Coco Nama."
     >
       <CanvaEmbed
         src={CANVA_MOODBOARD_SRC}

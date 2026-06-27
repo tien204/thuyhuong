@@ -6,8 +6,9 @@ import { SocialVideoCarousel } from "@/components/experience/SocialVideoCarousel
 export function CaseStudySectionBar() {
   return (
     <ExperienceSectionBar
+      compact
       label="Social Post"
-      description="Video social campaign here.olong trên Facebook và TikTok."
+      description="Video social campaign here.olong — Facebook và TikTok."
     >
       <SocialVideoCarousel />
     </ExperienceSectionBar>
