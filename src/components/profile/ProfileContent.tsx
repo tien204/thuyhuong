@@ -17,6 +17,14 @@ const TOOLS = [
     imageSrc: "/icon-app/canva.svg",
   },
   {
+    name: "AI Studio",
+    imageSrc: "/icon-app/aistudio.svg",
+  },
+  {
+    name: "Claude",
+    imageSrc: "/icon-app/claude-color.svg",
+  },
+  {
     name: "Microsoft Office",
     imageSrc: "/icon-app/microsoft-office-2013-logo-svgrepo-com.svg",
   },
