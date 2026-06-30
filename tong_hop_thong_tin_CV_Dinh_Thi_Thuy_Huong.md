@@ -6,7 +6,7 @@
 |---|---|
 | Họ và tên | Đinh Thị Thủy Hương |
 | Số điện thoại | 0399814954 |
-| Email | dinhthuyhuong11@gmail.com |
+| Email | dinhthithuyhuong.workcontact@gmail.com |
 | Định hướng vị trí | Branding Planner / Social Media Executive / Marketing |
 
 ---

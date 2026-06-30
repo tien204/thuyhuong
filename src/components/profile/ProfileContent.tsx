@@ -181,13 +181,13 @@ export function ProfileContent() {
                   </li>
                   <li>
                     <a
-                      href="mailto:dinhthuyhuong11@gmail.com"
+                      href="mailto:dinhthithuyhuong.workcontact@gmail.com"
                       className="group flex items-center gap-3 text-sm text-white/90 transition-colors hover:text-white"
                     >
                       <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/10">
                         <IconMail />
                       </span>
-                      <span className="break-all">dinhthuyhuong11@gmail.com</span>
+                      <span className="break-all">dinhthithuyhuong.workcontact@gmail.com</span>
                     </a>
                   </li>
                   <li className="flex items-center gap-3 text-sm text-white/90">

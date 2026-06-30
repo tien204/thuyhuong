@@ -70,7 +70,7 @@ function buildMailtoLink(form: ContactForm) {
     ].join("\n"),
   );
 
-  return `mailto:dinhthuyhuong11@gmail.com?subject=${subject}&body=${body}`;
+  return `mailto:dinhthithuyhuong.workcontact@gmail.com?subject=${subject}&body=${body}`;
 }
 
 function TypingIndicator() {
