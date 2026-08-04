@@ -77,7 +77,7 @@ export function HighlightReelFrame({
 
 function HighlightMediaEmbed({ media }: { media: HighlightMedia }) {
   if (media.type === "tiktok") {
-    return <TikTokEmbed videoId={media.videoId} fillCard eager />;
+    return <TikTokEmbed videoId={media.videoId} fillCard clickToLoad />;
   }
 
   if (media.type === "tiktok-photo") {
@@ -86,7 +86,7 @@ function HighlightMediaEmbed({ media }: { media: HighlightMedia }) {
         postId={media.postId}
         href={media.href}
         fillCard
-        eager
+        clickToLoad
       />
     );
   }

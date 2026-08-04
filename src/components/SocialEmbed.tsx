@@ -131,6 +131,44 @@ function EmbedUnavailable({
   );
 }
 
+function EmbedClickToLoad({
+  label,
+  className = "",
+  onLoad,
+}: {
+  label: string;
+  className?: string;
+  onLoad: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onLoad}
+      className={cn(
+        "group flex w-full flex-col items-center justify-center gap-3 bg-[var(--color-surface-strong)] px-4 text-center transition-colors hover:bg-[var(--color-surface-soft)]",
+        className,
+      )}
+    >
+      <span className="flex size-12 items-center justify-center rounded-full bg-[var(--color-brand-navy)] text-white shadow-[var(--shadow-card)] transition-transform group-hover:scale-105">
+        <svg
+          viewBox="0 0 24 24"
+          className="ml-0.5 size-5"
+          fill="currentColor"
+          aria-hidden
+        >
+          <path d="M8 5.14v13.72L19 12 8 5.14z" />
+        </svg>
+      </span>
+      <span className="text-sm font-semibold text-[var(--color-primary-ink)]">
+        Xem {label}
+      </span>
+      <span className="text-[11px] leading-snug text-[var(--color-body)]">
+        Nhấn để tải nội dung từ {label}
+      </span>
+    </button>
+  );
+}
+
 function useEmbedLoadState(active: boolean, timeoutMs = 12000) {
   const [state, setState] = useState<"loading" | "ready" | "unavailable">(
     "loading",
@@ -208,14 +246,20 @@ export function TikTokEmbed({
   className = "",
   fillCard = false,
   eager = false,
+  clickToLoad = false,
 }: {
   videoId: string;
   className?: string;
   fillCard?: boolean;
   eager?: boolean;
+  /** Chỉ gọi TikTok khi user nhấn — tránh rate-limit / overload-protect */
+  clickToLoad?: boolean;
 }) {
-  const { ref, visible } = useLazyLoad("400px", eager);
-  const { state, markReady } = useEmbedLoadState(visible);
+  const [activated, setActivated] = useState(!clickToLoad);
+  const { ref, visible } = useLazyLoad("400px", eager || clickToLoad);
+  const shouldLoad = activated && visible;
+  const { state, markReady } = useEmbedLoadState(shouldLoad);
+  const frameClass = fillCard ? "h-full" : "aspect-[9/16] min-h-0";
 
   const src =
     `https://www.tiktok.com/player/v1/${videoId}` +
@@ -234,12 +278,15 @@ export function TikTokEmbed({
       ref={ref}
       className={`overflow-hidden bg-[var(--color-white)] ${fillCard ? "h-full w-full" : "mx-auto w-full rounded-[var(--radius-md)]"} ${className}`}
     >
-      {visible ? (
+      {!activated ? (
+        <EmbedClickToLoad
+          label="TikTok"
+          className={frameClass}
+          onLoad={() => setActivated(true)}
+        />
+      ) : shouldLoad ? (
         state === "unavailable" ? (
-          <EmbedUnavailable
-            label="TikTok"
-            className={fillCard ? "h-full" : "aspect-[9/16] min-h-0"}
-          />
+          <EmbedUnavailable label="TikTok" className={frameClass} />
         ) : (
           <iframe
             src={src}
@@ -256,10 +303,7 @@ export function TikTokEmbed({
           />
         )
       ) : (
-        <EmbedSkeleton
-          label="TikTok"
-          className={fillCard ? "h-full" : "aspect-[9/16] min-h-0"}
-        />
+        <EmbedSkeleton label="TikTok" className={frameClass} />
       )}
     </div>
   );
@@ -272,20 +316,29 @@ export function TikTokPostEmbed({
   className = "",
   fillCard = false,
   eager = false,
+  clickToLoad = false,
 }: {
   postId: string;
   href?: string;
   className?: string;
   fillCard?: boolean;
   eager?: boolean;
+  /** Chỉ gọi TikTok khi user nhấn — tránh rate-limit / overload-protect */
+  clickToLoad?: boolean;
 }) {
-  const { ref: lazyRef, element, visible } = useLazyLoad("200px", eager);
+  const [activated, setActivated] = useState(!clickToLoad);
+  const { ref: lazyRef, element, visible } = useLazyLoad(
+    "200px",
+    eager || clickToLoad,
+  );
   const { setRef: widthRef, width } = useElementWidth(200);
   const containerRef = mergeRefs(lazyRef, widthRef);
   const scale = Math.min(1, Math.max(0.48, (width - 2) / TIKTOK_BLOCKQUOTE_WIDTH));
+  const shouldLoad = activated && visible;
+  const frameClass = fillCard ? "h-full" : "aspect-[9/16] min-h-0";
 
   useEffect(() => {
-    if (!visible || !element || !href) return;
+    if (!shouldLoad || !element || !href) return;
 
     const render = () => {
       window.tiktokEmbed?.lib?.render(element);
@@ -298,11 +351,11 @@ export function TikTokPostEmbed({
       window.clearTimeout(timer);
       window.clearTimeout(retry);
     };
-  }, [visible, element, href, postId, scale]);
+  }, [shouldLoad, element, href, postId, scale]);
 
   return (
     <>
-      <TikTokEmbedScript />
+      {activated ? <TikTokEmbedScript /> : null}
       <div
         ref={containerRef}
         className={cn(
@@ -311,11 +364,14 @@ export function TikTokPostEmbed({
           className,
         )}
       >
-        {!visible ? (
-          <EmbedSkeleton
+        {!activated ? (
+          <EmbedClickToLoad
             label="TikTok"
-            className={fillCard ? "h-full" : "aspect-[9/16] min-h-0"}
+            className={frameClass}
+            onLoad={() => setActivated(true)}
           />
+        ) : !shouldLoad ? (
+          <EmbedSkeleton label="TikTok" className={frameClass} />
         ) : href ? (
           <div className="relative h-full w-full overflow-hidden">
             <div
@@ -340,10 +396,7 @@ export function TikTokPostEmbed({
             </div>
           </div>
         ) : (
-          <EmbedUnavailable
-            label="TikTok"
-            className={fillCard ? "h-full" : "aspect-[9/16] min-h-0"}
-          />
+          <EmbedUnavailable label="TikTok" className={frameClass} />
         )}
       </div>
     </>
