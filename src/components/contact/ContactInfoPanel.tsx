@@ -18,8 +18,8 @@ const CONTACT_ITEMS = [
   },
   {
     label: "Email",
-    value: "dinhthithuyhuong.workcontact@gmail.com",
-    href: "mailto:dinhthithuyhuong.workcontact@gmail.com",
+    value: "dinhthuyhuong11@gmail.com",
+    href: "mailto:dinhthuyhuong11@gmail.com",
     icon: IconMail,
   },
 ] as const;
